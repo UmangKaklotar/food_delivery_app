@@ -14,9 +14,13 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network('https://fishgourmet.ae/assets/front/img/sliders/1599931666.png', width: MySize.width * 0.7,),
+            Image.network(
+              'https://fishgourmet.ae/assets/front/img/sliders/1599931666.png',
+              width: MySize.width * 0.7,
+            ),
             const SizedBox(height: 40),
-            Text("Fast Delivery at\nYour Doorstep",
+            Text(
+              "Fast Delivery at\nYour Doorstep",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: MyColor.white,
@@ -25,7 +29,8 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 25),
-            Text("Home Delivery and Online Reservation\nSystem for restaurants & Cafe",
+            Text(
+              "Home Delivery and Online Reservation\nSystem for restaurants & Cafe",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: MyColor.white,
@@ -39,7 +44,7 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: MyColor.themeColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
-        onTap: () => Get.off(const HomeScreen()),
+        onTap: () => Get.off(() => HomeScreen()),
         child: Container(
           margin: const EdgeInsets.all(15),
           height: 55,
@@ -49,7 +54,8 @@ class SplashScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           alignment: Alignment.center,
-          child: Text("Let's Explore",
+          child: Text(
+            "Let's Explore",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
