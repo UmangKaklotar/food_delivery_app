@@ -44,7 +44,7 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: MyColor.themeColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
-        onTap: () => Get.off(() => HomeScreen()),
+        onTap: () => Get.off(() => const HomeScreen()),
         child: Container(
           margin: const EdgeInsets.all(15),
           height: 55,
@@ -57,7 +57,7 @@ class SplashScreen extends StatelessWidget {
           child: Text(
             "Let's Explore",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.w600,
               color: MyColor.themeColor,
             ),
