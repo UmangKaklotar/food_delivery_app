@@ -5,17 +5,14 @@ import 'package:get/get.dart';
 import '../Controller/home_controller.dart';
 import '../Utils/color.dart';
 
-// ignore: must_be_immutable
 class BottomBar extends StatelessWidget {
-  BottomBar({Key? key}) : super(key: key);
-
-  HomeController homeController = Get.put(HomeController());
+  const BottomBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => BottomNavigationBar(
-      currentIndex: homeController.index.value,
-      onTap: homeController.pageIndex,
+      currentIndex: HomeController.homeController.index.value,
+      onTap: HomeController.homeController.pageIndex,
       unselectedItemColor: MyColor.black.withOpacity(0.7),
       type: BottomNavigationBarType.fixed,
       selectedItemColor: MyColor.themeColor,

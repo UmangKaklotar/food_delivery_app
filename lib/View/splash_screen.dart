@@ -47,7 +47,7 @@ class SplashScreen extends StatelessWidget {
         onTap: () => Get.off(() => const HomeScreen()),
         child: Container(
           margin: const EdgeInsets.all(15),
-          height: 55,
+          height: 50,
           width: MySize.width,
           decoration: BoxDecoration(
             color: MyColor.white,
