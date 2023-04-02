@@ -14,8 +14,8 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              'https://fishgourmet.ae/assets/front/img/sliders/1599931666.png',
+            Image.asset(
+              'assets/image/splash.png',
               width: MySize.width * 0.7,
             ),
             const SizedBox(height: 40),

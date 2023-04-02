@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Controller/home_controller.dart';
-import 'package:food_delivery_app/Model/food_model.dart';
 import 'package:food_delivery_app/Utils/size.dart';
 import 'package:get/get.dart';
 
@@ -122,10 +121,7 @@ class Home extends StatelessWidget {
                                       ? Icon(CupertinoIcons.heart_fill, color: MyColor.red,)
                                       : Icon(CupertinoIcons.heart, color: MyColor.grey,),
                                     splashRadius: 5,
-                                    onPressed: () async {
-                                      controller.updateFavourite(index, data[index]['fav']);
-                                      controller.insertFoodFav(data[index]);
-                                    },
+                                    onPressed: () => controller.updateFavourite(index, data[index]['fav']),
                                   ),
                                 ),
                                 Container(
@@ -154,14 +150,17 @@ class Home extends StatelessWidget {
                                 ),
                                 Align(
                                   alignment: Alignment.bottomRight,
-                                  child: Container(
-                                    height: MySize.height * 0.05,
-                                    width: MySize.width * 0.10,
-                                    decoration: BoxDecoration(
-                                      color: MyColor.themeColor,
-                                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                                  child: GestureDetector(
+                                    onTap: () => controller.addCart(context, index, data[index]['cart']),
+                                    child: Container(
+                                      height: MySize.height * 0.05,
+                                      width: MySize.width * 0.10,
+                                      decoration: BoxDecoration(
+                                        color: MyColor.themeColor,
+                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                                      ),
+                                      child: Icon(CupertinoIcons.add, color: MyColor.white,),
                                     ),
-                                    child: Icon(CupertinoIcons.add, color: MyColor.white,),
                                   ),
                                 )
                               ],
