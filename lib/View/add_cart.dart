@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/View/food_detail.dart';
 import 'package:get/get.dart';
 
 import '../Controller/home_controller.dart';
@@ -65,98 +66,104 @@ class AddCart extends StatelessWidget {
                           itemBuilder: (context, index) {
                             List data = snapshot.data!.docs;
                             if (data[index]['cart']) {
-                              return Card(
-                                elevation: 3,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  height: MySize.height * 0.1,
-                                  width: MySize.width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                          width: 90,
-                                          child: Image.network(
-                                            data[index]['img'],
-                                            height: 60,
-                                          )),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${data[index]['name']}",
-                                          ),
-                                          Text(
-                                            "₹ ${data[index]['price'] * data[index]['qty']}",
-                                            style: TextStyle(
-                                                color: MyColor.grey),
-                                          ),
-                                          Text(
-                                            "Qty: ${data[index]['qty']}",
-                                            style: TextStyle(
-                                                color: MyColor.grey),
-                                          ),
-                                        ],
-                                      ),
-                                      const Spacer(),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () => controller.addCart(
-                                                context,
-                                                index,
-                                                data[index]['cart']),
-                                            child: Icon(
-                                              CupertinoIcons.delete,
-                                              size: 22,
-                                              color: MyColor.black
-                                                  .withOpacity(0.7),
+                              return GestureDetector(
+                                onTap: () => Get.to(() => FoodDetails(food: data[index], index: index)),
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    height: MySize.height * 0.1,
+                                    width: MySize.width,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                            width: 90,
+                                            child: Hero(
+                                              tag: data[index]['img'],
+                                              child: Image.network(
+                                                data[index]['img'],
+                                                height: 60,
+                                              ),
+                                            )),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${data[index]['name']}",
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () =>
-                                                    controller.qtyDecrement(
-                                                        index,
-                                                        data[index]['qty']),
-                                                child: Icon(
-                                                  Icons.remove_circle,
-                                                  color: MyColor.themeColor,
-                                                ),
+                                            Text(
+                                              "₹ ${data[index]['price'] * data[index]['qty']}",
+                                              style: TextStyle(
+                                                  color: MyColor.grey),
+                                            ),
+                                            Text(
+                                              "Qty: ${data[index]['qty']}",
+                                              style: TextStyle(
+                                                  color: MyColor.grey),
+                                            ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () => controller.addCart(
+                                                  context,
+                                                  index,
+                                                  data[index]['cart']),
+                                              child: Icon(
+                                                CupertinoIcons.delete,
+                                                size: 22,
+                                                color: MyColor.black
+                                                    .withOpacity(0.7),
                                               ),
-                                              Text(" ${data[index]['qty']} "),
-                                              GestureDetector(
-                                                onTap: () =>
-                                                    controller.qtyIncrement(
-                                                        index,
-                                                        data[index]['qty']),
-                                                child: Icon(
-                                                  CupertinoIcons
-                                                      .add_circled_solid,
-                                                  color: MyColor.themeColor,
+                                            ),
+                                            Row(
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      controller.qtyDecrement(
+                                                          index,
+                                                          data[index]['qty']),
+                                                  child: Icon(
+                                                    Icons.remove_circle,
+                                                    color: MyColor.themeColor,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                                Text(" ${data[index]['qty']} "),
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      controller.qtyIncrement(
+                                                          index,
+                                                          data[index]['qty']),
+                                                  child: Icon(
+                                                    CupertinoIcons
+                                                        .add_circled_solid,
+                                                    color: MyColor.themeColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

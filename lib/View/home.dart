@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Controller/home_controller.dart';
 import 'package:food_delivery_app/Utils/size.dart';
+import 'package:food_delivery_app/View/food_detail.dart';
 import 'package:get/get.dart';
 
 import '../Utils/color.dart';
@@ -23,12 +24,13 @@ class Home extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                iconWidget(icon: Icon(Icons.dehaze_rounded, color: MyColor.white,)),
+                iconWidget(icon: Icon(Icons.dehaze_rounded, color: MyColor.white,), color: MyColor.themeColor),
                 Text(
                   "📍 Surat - 395004",
                   style: TextStyle(fontSize: 18, color: MyColor.grey),
                 ),
                 iconWidget(
+                  color: MyColor.themeColor,
                   icon: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
@@ -100,73 +102,79 @@ class Home extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       List data = snapshot.data!.docs;
-                      return Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
+                      return GestureDetector(
+                        onTap: () => Get.to(() => FoodDetails(index: index, food: data[index],)),
+                        child: Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: IconButton(
-                                  icon: (data[index]['fav'])
-                                    ? Icon(CupertinoIcons.heart_fill, color: MyColor.red,)
-                                    : Icon(CupertinoIcons.heart, color: MyColor.grey,),
-                                  splashRadius: 5,
-                                  onPressed: () => controller.updateFavourite(index, data[index]['fav']),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                height : 60,
-                                child: Image.network("${data[index]['img']}"),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text("${data[index]['name']}",
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    icon: (data[index]['fav'])
+                                      ? Icon(CupertinoIcons.heart_fill, color: MyColor.red,)
+                                      : Icon(CupertinoIcons.heart, color: MyColor.grey,),
+                                    splashRadius: 5,
+                                    onPressed: () => controller.updateFavourite(index, data[index]['fav']),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text("20 Min"),
-                                    Text("⭐ 4.6"),
-                                  ],
+                                Container(
+                                  alignment: Alignment.center,
+                                  height : 60,
+                                  child: Hero(
+                                    tag: data[index]['img'],
+                                    child: Image.network("${data[index]['img']}"),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text("₹ ${data[index]['price']}"),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: GestureDetector(
-                                  onTap: () => controller.addCart(context, index, data[index]['cart']),
-                                  child: Container(
-                                    height: MySize.height * 0.046,
-                                    width: MySize.width * 0.1,
-                                    decoration: BoxDecoration(
-                                      color: MyColor.themeColor,
-                                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text("${data[index]['name']}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    child: Icon(CupertinoIcons.add, color: MyColor.white,),
                                   ),
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: const [
+                                      Text("20 Min"),
+                                      Text("⭐ 4.6"),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text("₹ ${data[index]['price']}"),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: GestureDetector(
+                                    onTap: () => controller.addCart(context, index, data[index]['cart']),
+                                    child: Container(
+                                      height: MySize.height * 0.046,
+                                      width: MySize.width * 0.1,
+                                      decoration: BoxDecoration(
+                                        color: MyColor.themeColor,
+                                        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                                      ),
+                                      child: Icon(CupertinoIcons.add, color: MyColor.white,),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );
