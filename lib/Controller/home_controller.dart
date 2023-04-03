@@ -29,7 +29,6 @@ class HomeController extends GetxController {
 
   qtyIncrement(String id, int qty) {
     if (qty > 0) qty++;
-    update();
     return food
         .doc(id)
         .update({'qty': qty})
@@ -39,7 +38,6 @@ class HomeController extends GetxController {
 
   qtyDecrement(String id, int qty) {
     if (qty > 1) qty--;
-    update();
     return food
         .doc(id)
         .update({'qty': qty})
@@ -49,7 +47,6 @@ class HomeController extends GetxController {
 
   addCart(context, String id, bool val) {
     snackBar(context, !val ? "Added to Cart..." : "Removed to Cart...");
-    update();
     return food
         .doc(id)
         .update({'qty': 1, 'cart': !val,})
@@ -58,7 +55,6 @@ class HomeController extends GetxController {
   }
 
   updateFavourite(String id, bool val) {
-    update();
     return food
         .doc(id)
         .update({'fav': !val})
