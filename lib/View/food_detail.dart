@@ -10,8 +10,7 @@ import '../Widget/icon_widget.dart';
 
 class FoodDetails extends StatelessWidget {
   QueryDocumentSnapshot food;
-  String id;
-  FoodDetails({Key? key, required this.food, required this.id}) : super(key: key);
+  FoodDetails({Key? key, required this.food,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,7 @@ class FoodDetails extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                     children: [
                                       IconButton(
-                                          onPressed: () => controller.qtyDecrement(id, food['qty']),
+                                          onPressed: () => controller.qtyDecrement(food.id, food['qty']),
                                           icon: Icon(
                                             Icons.remove,
                                             color: MyColor.white,
@@ -113,7 +112,7 @@ class FoodDetails extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       IconButton(
-                                          onPressed: () => controller.qtyIncrement(id, food['qty']),
+                                          onPressed: () => controller.qtyIncrement(food.id, food['qty']),
                                           icon: Icon(
                                             Icons.add,
                                             color: MyColor.white,
@@ -155,7 +154,7 @@ class FoodDetails extends StatelessWidget {
                               style: TextStyle(color: MyColor.grey),),
                           const Spacer(),
                           InkWell(
-                            onTap: () => controller.addCart(context, id, food['cart']),
+                            onTap: () => controller.addCart(context, food.id, food['cart']),
                             child: Container(
                               height: 55,
                               width: MySize.width,

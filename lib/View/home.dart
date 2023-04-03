@@ -106,7 +106,7 @@ class Home extends StatelessWidget {
                       itemBuilder: (context, index) {
                         List data = snapshot.data!.docs;
                         return GestureDetector(
-                          onTap: () => Get.to(() => FoodDetails(id: snapshot.data!.docs[index].id, food: data[index],)),
+                          onTap: () => Get.to(() => FoodDetails(food: snapshot.data!.docs[index],)),
                           child: Card(
                             elevation: 3,
                             shape: RoundedRectangleBorder(
