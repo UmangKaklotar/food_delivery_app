@@ -7,7 +7,6 @@ import 'package:food_delivery_app/View/food_detail.dart';
 import 'package:get/get.dart';
 
 import '../Utils/color.dart';
-import '../Widget/category_button.dart';
 
 class Favourite extends StatelessWidget {
   const Favourite({Key? key}) : super(key: key);
@@ -24,27 +23,9 @@ class Favourite extends StatelessWidget {
                 "My Favourite",
                 style: TextStyle(fontSize: 18, color: MyColor.black),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => controller.selectCategory('food'),
-                      child: categoryButton(title: "food"),
-                    ),
-                    GestureDetector(
-                      onTap: () => controller.selectCategory('fruit'),
-                      child: categoryButton(title: "fruit"),
-                    ),
-                    GestureDetector(
-                      onTap: () => controller.selectCategory('vegetable'),
-                      child: categoryButton(title: "vegetable"),
-                    ),
-                  ],
-                ),
-              ),
+              const SizedBox(height: 10,),
               StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('foods').doc(controller.category.value).collection(controller.category.value).snapshots(),
+                stream: FirebaseFirestore.instance.collection('food').where('fav', isEqualTo: true,).snapshots(),
                 builder: (context, snapshot) {
                   if(snapshot.hasError) {
                     return const Center(child: Text("Something went Wrong!!"),);
@@ -59,7 +40,7 @@ class Favourite extends StatelessWidget {
                         List data = snapshot.data!.docs;
                         if(data[index]['fav']) {
                           return GestureDetector(
-                            onTap: () => Get.to(() => FoodDetails(food: data[index], index: index)),
+                            onTap: () => Get.to(() => FoodDetails(food: data[index], id: snapshot.data!.docs[index].id)),
                             child: Card(
                               elevation: 3,
                               shape: RoundedRectangleBorder(
@@ -90,7 +71,7 @@ class Favourite extends StatelessWidget {
                                     ),
                                     const Spacer(),
                                     GestureDetector(
-                                      onTap: () => controller.updateFavourite(index, data[index]['fav']),
+                                      onTap: () => controller.updateFavourite(snapshot.data!.docs[index].id, data[index]['fav']),
                                       child: Icon(CupertinoIcons.delete, color: MyColor.black.withOpacity(0.7),)
                                     ),
                                   ],

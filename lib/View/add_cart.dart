@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../Controller/home_controller.dart';
 import '../Utils/color.dart';
 import '../Utils/size.dart';
-import '../Widget/category_button.dart';
 
 class AddCart extends StatelessWidget {
   const AddCart({Key? key}) : super(key: key);
@@ -24,40 +23,14 @@ class AddCart extends StatelessWidget {
                   "Add to Cart",
                   style: TextStyle(fontSize: 18, color: MyColor.black),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => controller.selectCategory('food'),
-                        child: categoryButton(title: "food"),
-                      ),
-                      GestureDetector(
-                        onTap: () => controller.selectCategory('fruit'),
-                        child: categoryButton(title: "fruit"),
-                      ),
-                      GestureDetector(
-                        onTap: () => controller.selectCategory('vegetable'),
-                        child: categoryButton(title: "vegetable"),
-                      ),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 10,),
                 StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('foods')
-                        .doc(controller.category.value)
-                        .collection(controller.category.value)
-                        .snapshots(),
+                    stream: FirebaseFirestore.instance.collection('food').where('cart', isEqualTo: true,).snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return const Center(
-                          child: Text("Something went Wrong!!"),
-                        );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator());
+                        return const Center(child: Text("Something went Wrong!!"),);
+                      } else if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
                       } else {
                         return ListView.builder(
                           shrinkWrap: true,
@@ -67,7 +40,7 @@ class AddCart extends StatelessWidget {
                             List data = snapshot.data!.docs;
                             if (data[index]['cart']) {
                               return GestureDetector(
-                                onTap: () => Get.to(() => FoodDetails(food: data[index], index: index)),
+                                onTap: () => Get.to(() => FoodDetails(food: data[index], id: snapshot.data!.docs[index].id)),
                                 child: Card(
                                   elevation: 3,
                                   shape: RoundedRectangleBorder(
@@ -125,7 +98,7 @@ class AddCart extends StatelessWidget {
                                             GestureDetector(
                                               onTap: () => controller.addCart(
                                                   context,
-                                                  index,
+                                                  snapshot.data!.docs[index].id,
                                                   data[index]['cart']),
                                               child: Icon(
                                                 CupertinoIcons.delete,
@@ -139,7 +112,7 @@ class AddCart extends StatelessWidget {
                                                 GestureDetector(
                                                   onTap: () =>
                                                       controller.qtyDecrement(
-                                                          index,
+                                                          snapshot.data!.docs[index].id,
                                                           data[index]['qty']),
                                                   child: Icon(
                                                     Icons.remove_circle,
@@ -150,7 +123,7 @@ class AddCart extends StatelessWidget {
                                                 GestureDetector(
                                                   onTap: () =>
                                                       controller.qtyIncrement(
-                                                          index,
+                                                          snapshot.data!.docs[index].id,
                                                           data[index]['qty']),
                                                   child: Icon(
                                                     CupertinoIcons
