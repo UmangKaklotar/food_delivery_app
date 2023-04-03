@@ -99,7 +99,10 @@ class FoodDetails extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                     children: [
                                       IconButton(
-                                          onPressed: () => controller.qtyDecrement(food.id, food['qty']),
+                                          onPressed: () {
+                                            controller.qtyDecrement(food.id, food['qty']);
+                                            // double.parse(food['qty']).obs.value++;
+                                          },
                                           icon: Icon(
                                             Icons.remove,
                                             color: MyColor.white,
