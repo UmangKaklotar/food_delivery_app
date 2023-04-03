@@ -20,7 +20,7 @@ class AddCart extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "Add to Cart",
+                  "My Cart",
                   style: TextStyle(fontSize: 18, color: MyColor.black),
                 ),
                 const SizedBox(height: 10,),
