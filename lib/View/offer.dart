@@ -9,7 +9,7 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       heightFactor: MySize.height,
-      child: Text("No Chats",
+      child: Text("No Offer",
         style: TextStyle(
           color: MyColor.grey,
         ),

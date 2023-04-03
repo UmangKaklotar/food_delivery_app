@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Controller/home_controller.dart';
 import 'package:food_delivery_app/View/add_cart.dart';
 import 'package:food_delivery_app/View/bottom_navigation_bar.dart';
-import 'package:food_delivery_app/View/chat.dart';
+import 'package:food_delivery_app/View/offer.dart';
 import 'package:food_delivery_app/View/favourite.dart';
 import 'package:get/get.dart';
 

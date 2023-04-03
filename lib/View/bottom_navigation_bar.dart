@@ -28,8 +28,8 @@ class BottomBar extends StatelessWidget {
               tooltip: "Home",
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(CupertinoIcons.chat_bubble_2_fill),
-              icon: Icon(CupertinoIcons.chat_bubble_2),
+              activeIcon: Icon(CupertinoIcons.tickets_fill),
+              icon: Icon(CupertinoIcons.tickets),
               label: "Offer",
               tooltip: "Offer",
             ),

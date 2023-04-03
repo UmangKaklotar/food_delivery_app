@@ -18,58 +18,57 @@ class HomeController extends GetxController {
   }
 
   qtyIncrement(int index, int qty) async {
-    if (qty > 0) qty.obs.value++;
+    if (qty > 0) qty++;
     CollectionReference foods = FirebaseFirestore.instance
         .collection('foods')
-        .doc(HomeController.homeController.category.value)
-        .collection(HomeController.homeController.category.value);
+        .doc(homeController.category.value)
+        .collection(homeController.category.value);
     var doc_snap = await foods.get();
     var doc_id = doc_snap.docs;
+    update();
     return foods
         .doc(doc_id[index].id)
-        .update({'qty': qty.obs.value})
+        .update({'qty': qty})
         .then((value) => print("Value Updated..."))
         .catchError((error) => print("Error :: $error"));
-    update();
   }
 
   qtyDecrement(int index, int qty) async {
-    if (qty > 1) qty.obs.value--;
+    if (qty > 1) qty--;
     CollectionReference foods = FirebaseFirestore.instance
         .collection('foods')
-        .doc(HomeController.homeController.category.value)
-        .collection(HomeController.homeController.category.value);
+        .doc(homeController.category.value)
+        .collection(homeController.category.value);
     var doc_snap = await foods.get();
     var doc_id = doc_snap.docs;
+    update();
     return foods
         .doc(doc_id[index].id)
-        .update({'qty': qty.obs.value})
+        .update({'qty': qty})
         .then((value) => print("Value Updated..."))
         .catchError((error) => print("Error :: $error"));
-    update();
   }
 
   addCart(context, int index, bool val) async {
     snackBar(context, !val ? "Added to Cart..." : "Removed to Cart...");
     CollectionReference foods = FirebaseFirestore.instance
         .collection('foods')
-        .doc(HomeController.homeController.category.value)
-        .collection(HomeController.homeController.category.value);
+        .doc(homeController.category.value)
+        .collection(homeController.category.value);
     var doc_snap = await foods.get();
     var doc_id = doc_snap.docs;
     return foods
         .doc(doc_id[index].id)
-        .update({'cart': !val})
+        .update({'qty': 1, 'cart': !val,})
         .then((value) => print("Value Updated..."))
         .catchError((error) => print("Error :: $error"));
-    update();
   }
 
   updateFavourite(int index, bool val) async {
     CollectionReference foods = FirebaseFirestore.instance
         .collection('foods')
-        .doc(HomeController.homeController.category.value)
-        .collection(HomeController.homeController.category.value);
+        .doc(homeController.category.value)
+        .collection(homeController.category.value);
     var doc_snap = await foods.get();
     var doc_id = doc_snap.docs;
     return foods
@@ -77,6 +76,5 @@ class HomeController extends GetxController {
         .update({'fav': !val})
         .then((value) => print("Value Updated..."))
         .catchError((error) => print("Error :: $error"));
-    update();
   }
 }
