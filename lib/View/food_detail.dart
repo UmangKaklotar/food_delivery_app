@@ -124,88 +124,56 @@ class FoodDetails extends StatelessWidget {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 30),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "20 Min",
-                                    style: TextStyle(
-                                        color: MyColor.grey, fontSize: 16),
-                                  ),
-                                ],
+                              Text(
+                                "⌚ 20 Min",
+                                style: TextStyle(
+                                    color: MyColor.grey, fontSize: 16),
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.water_drop,
-                                    color: Colors.red,
-                                  ),
-                                  Text(
-                                    "100 Kcal",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 16),
-                                  ),
-                                ],
+                              Text(
+                                "🔥 100 Kcal",
+                                style: TextStyle(
+                                    color: MyColor.grey, fontSize: 16),
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.watch_later_sharp,
-                                    color: Colors.orangeAccent,
-                                  ),
-                                  Text(
-                                    "4.5",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 16),
-                                  ),
-                                ],
+                              Text(
+                                "⭐ 4.5",
+                                style: TextStyle(
+                                    color: MyColor.grey, fontSize: 16),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text("About food",
+                          const SizedBox(height: 20),
+                          const Text("About food",
                               style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w500)),
-                          SizedBox(
-                            height: 10,
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                           ),
                           Text(
                               "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. ",
-                              style: TextStyle(fontSize: 13, color: Colors.grey)),
-                          SizedBox(
-                            height: 30,
-                          ),
+                              style: TextStyle(color: MyColor.grey),),
+                          const Spacer(),
                           InkWell(
-                            onTap: () {
-
-                              // Navigator.pushNamed(context,"/");
-                            },
+                            onTap: () => controller.addCart(context, index, food['cart']),
                             child: Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: MySize.height * 0.025),
+                              height: 55,
+                              width: MySize.width,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Theme.of(context).primaryColor,
+                                  color: MyColor.themeColor,
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: MyColor.black.withOpacity(0.1),
                                         spreadRadius: 0.5,
                                         blurRadius: 2,
-                                        offset: Offset(0, 3))
+                                        offset: const Offset(0, 3))
                                   ]),
                               child: Text(
                                 "Add to cart",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: MyColor.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
                               ),
